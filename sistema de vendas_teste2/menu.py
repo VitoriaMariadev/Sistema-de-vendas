@@ -76,3 +76,5 @@ while True:
 
 
 janela.close()
+
+# TESTEEEEEEE AAA D:
