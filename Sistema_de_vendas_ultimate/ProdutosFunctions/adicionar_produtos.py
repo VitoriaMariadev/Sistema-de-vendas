@@ -26,7 +26,7 @@ def adicionar_produtos():
                 [sg.Button('Adicionar'), sg.Push(), sg.Button('Voltar')]
             ]
 
-    janela = sg.Window('Produtos', layout, element_justification='c', size=(400,170))
+    janela = sg.Window('Produtos', layout, element_justification='c', size=(400,140))
 
     while True:
         eventos, valores = janela.read()

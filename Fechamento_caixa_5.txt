@@ -1,0 +1,6 @@
+---Caixa---: 5
+Hora de Abertura: 00:39:38 |  Data de Abertura: 2023-04-15
+Hora de Fechamento: 00:40:09|  Data de Fechamento: 2023-04-15
+Dinheiro Inicial: R$0,00
+Dinheiro Recebido: R$10,00
+>>> Dinheiro Final: R$10,00
