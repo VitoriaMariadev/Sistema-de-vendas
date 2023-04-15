@@ -51,7 +51,7 @@ while True:
             
             if eventos == 'Abrir Caixa':
                 if caixa == False:
-                    
+                    janela_c['Abrir Caixa'].update('Fechar Caixa')
                     tempo = str(conexao.query("SELECT CURRENT_TIME")[0][0])[0:8]
                     
                     maxId = conexao.query("SELECT COUNT(*) FROM fechamento_caixa")
@@ -84,14 +84,12 @@ while True:
                     sg.popup('Caixa Aberto')
                     janela['Vendas'].update(button_color='#0c2464')
 
-                elif caixa == True:
-                    
-                    maxId = conexao.query("SELECT max(id) FROM fechamento_caixa")
-                    
+                elif caixa == True: 
+                    janela_c['Abrir Caixa'].update('Abrir Caixa')        
+                    maxId = conexao.query("SELECT max(id) FROM fechamento_caixa")  
                     dinhInicial = conexao.query("SELECT dinhinicial FROM fechamento_caixa")
                     dinhRecebido = conexao.query("SELECT dinhrecebido FROM fechamento_caixa")
-                    dinhfinal = dinhInicial[0][0] + dinhRecebido[0][0]
-                    
+                    dinhfinal = dinhInicial[0][0] + dinhRecebido[0][0]        
                     tempo = str(conexao.query("SELECT CURRENT_TIME")[0][0])[0:8]
                     conexao.execute(f"UPDATE fechamento_caixa SET horafecha = '{tempo}', datafecha = CURRENT_DATE, dinhfinal = dinhinicial + dinhrecebido WHERE id = {maxId[0][0]}")
 
