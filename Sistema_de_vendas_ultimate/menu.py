@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import conect as ct
+import matplotlib.pyplot as plt
 from Tabelas.Produtos import *
 from Tabelas.Vendas import *
 from tabela_fechamento_caixa import*
@@ -7,6 +8,7 @@ from tabela_fechamento_caixa import*
 conexao = ct.Connection()
 caixa = False
 tempo_aberto = []
+caixa_atual = 'Abrir Caixa'
 sg.theme('Default')
 sg.set_options(font=('Arial 12'), text_color='black')
 
@@ -37,8 +39,9 @@ while True:
 
         layout = [  
                     [sg.Text('Fechamento de Caixa', font=('Arial 16'))],
-                    [sg.Button('Abrir Caixa', size=(25,0))],
+                    [sg.Button(f'{caixa_atual}', size=(25,0), key= 'Abrir Caixa')],
                     [sg.Button('Ver Caixas', size=(25,0))],
+                    [sg.Button('Ver Grafico', size=(25,0))],
                     [sg.Button('Voltar', size=(25,0))]
                 ]
 
@@ -52,6 +55,7 @@ while True:
             if eventos == 'Abrir Caixa':
                 if caixa == False:
                     janela_c['Abrir Caixa'].update('Fechar Caixa')
+                    caixa_atual = 'Fechar Caixa'
                     tempo = str(conexao.query("SELECT CURRENT_TIME")[0][0])[0:8]
                     
                     maxId = conexao.query("SELECT COUNT(*) FROM fechamento_caixa")
@@ -85,7 +89,8 @@ while True:
                     janela['Vendas'].update(button_color='#0c2464')
 
                 elif caixa == True: 
-                    janela_c['Abrir Caixa'].update('Abrir Caixa')        
+                    janela_c['Abrir Caixa'].update('Abrir Caixa')
+                    caixa_atual = 'Abrir Caixa' 
                     maxId = conexao.query("SELECT max(id) FROM fechamento_caixa")  
                     dinhInicial = conexao.query("SELECT dinhinicial FROM fechamento_caixa")
                     dinhRecebido = conexao.query("SELECT dinhrecebido FROM fechamento_caixa")
@@ -101,6 +106,32 @@ while True:
                 janela_c.hide()
                 lista_caixa()
                 janela_c.un_hide()
+
+            elif eventos == 'Ver Grafico':
+                lista_data = []
+                lista_valores = []
+                datas = conexao.query('SELECT datafecha FROM public.fechamento_caixa;')
+                valores_recebido = conexao.query('SELECT dinhrecebido FROM public.fechamento_caixa;')
+                for d in datas:
+                    d = str(d[0])
+                    lista_data.append(d)
+                for val in valores_recebido:
+                    val = val[0]
+                    valor_i = ''
+                    for v in val:
+                        if v == 'R':
+                            pass
+                        elif v == '$':
+                            pass
+                        elif v == ',':
+                            valor_i += '.'
+                        
+                        else:
+                            valor_i += v
+                    lista_valores.append(float(valor_i))
+                plt.plot(lista_data, lista_valores)
+                plt.show()
+
 
         janela_c.close()
         #========================================================================================================================
