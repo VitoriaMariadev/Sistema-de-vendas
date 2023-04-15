@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 import conect as ct
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # Biblioteca usada para fazer o gráfico
 from Tabelas.Produtos import *
 from Tabelas.Vendas import *
 from tabela_fechamento_caixa import*
@@ -108,13 +108,19 @@ while True:
                 janela_c.un_hide()
 
             elif eventos == 'Ver Grafico':
+                # Chamando o gráfico
                 lista_data = []
                 lista_valores = []
+                '''
+                Aqui eu peguei a data final e o dinheiro recebido, para comparar quando cada caixa vendeu no seu dia.
+                '''
                 datas = conexao.query('SELECT datafecha FROM public.fechamento_caixa;')
                 valores_recebido = conexao.query('SELECT dinhrecebido FROM public.fechamento_caixa;')
+                # Quebrando a data para colocar em uma outra lista
                 for d in datas:
                     d = str(d[0])
                     lista_data.append(d)
+                # Transformando o dinheiro recebido em float
                 for val in valores_recebido:
                     val = val[0]
                     valor_i = ''
