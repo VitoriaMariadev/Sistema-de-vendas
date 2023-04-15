@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt # Biblioteca usada para fazer o gráfico
 from Tabelas.Produtos import *
 from Tabelas.Vendas import *
 from tabela_fechamento_caixa import*
-# Ignora
+
 conexao = ct.Connection()
 caixa = False
 tempo_aberto = []
