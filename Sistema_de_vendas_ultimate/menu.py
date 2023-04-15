@@ -55,10 +55,7 @@ while True:
                     tempo = str(conexao.query("SELECT CURRENT_TIME")[0][0])[0:8]
                     
                     maxId = conexao.query("SELECT COUNT(*) FROM fechamento_caixa")
-                    
-                    #dinhInicial = conexao.query(f"SELECT dinhfinal FROM fechamento_caixa WHERE id = {maxId[0][0]}")
-                    
-                    #print(dinhInicial)
+
                     try:
                         inicial = conexao.query(f'SELECT dinhfinal FROM fechamento_caixa WHERE id = {maxId[0][0]}')[0][0]
                     except:
@@ -95,8 +92,8 @@ while True:
                     dinhRecebido = conexao.query("SELECT dinhrecebido FROM fechamento_caixa")
                     dinhfinal = dinhInicial[0][0] + dinhRecebido[0][0]
                     
-                    
-                    conexao.execute(f"UPDATE fechamento_caixa SET horafecha = CURRENT_TIME, datafecha = CURRENT_DATE, dinhfinal = dinhinicial + dinhrecebido WHERE id = {maxId[0][0]}")
+                    tempo = str(conexao.query("SELECT CURRENT_TIME")[0][0])[0:8]
+                    conexao.execute(f"UPDATE fechamento_caixa SET horafecha = '{tempo}', datafecha = CURRENT_DATE, dinhfinal = dinhinicial + dinhrecebido WHERE id = {maxId[0][0]}")
 
                     sg.popup('Caixa Fechado')
                     caixa = False

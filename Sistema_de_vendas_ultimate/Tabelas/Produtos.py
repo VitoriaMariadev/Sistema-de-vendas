@@ -45,10 +45,12 @@ def produtos():
             adicionar_produtos()
             janela.un_hide()
         elif eventos == 'Editar produtos':
+            listagem_prod_edit()
             janela.hide()
             editar_produtos()
             janela.un_hide()
         elif eventos == 'Excluir produtos':
+            listagem_prod()
             janela.hide()
             excluir_produtos()
             janela.un_hide()

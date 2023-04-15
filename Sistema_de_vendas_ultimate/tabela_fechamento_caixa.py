@@ -10,10 +10,14 @@ def listagem_C():
     """
     global lista_de_vendas
     lista_de_vendas = []
-    pessoas = conexao.query(f'SELECT id, dinhinicial, dinhrecebido, dinhfinal FROM "fechamento_caixa"')
-    for id, dinhinicial, dinhrecebido, dinhfinal  in pessoas:
+    pessoas = conexao.query(f'SELECT id, horaabertura, dataabertura, horafecha, datafecha, dinhinicial, dinhrecebido, dinhfinal FROM "fechamento_caixa"')
+    for id, horaabertura, dataabertura, horafecha, datafecha, dinhinicial, dinhrecebido, dinhfinal  in pessoas:
         lista = []
         lista.append(id)
+        lista.append(horaabertura)
+        lista.append(dataabertura)
+        lista.append(horafecha)
+        lista.append(datafecha)
         lista.append(dinhinicial)
         lista.append(dinhrecebido)
         lista.append(dinhfinal)
@@ -30,7 +34,7 @@ def lista_caixa():
     layout = [  
                 [sg.Text('Lista de Vendas', font=('Arial 16'))],
                 [sg.Table(values=lista_de_vendas,
-                headings=['Caixa','Dinheiro Inicial','Dinheiro Recebido','Dinheiro Final'],
+                headings=['Caixa', 'H. Abertura', 'D. Abertura', 'H. Fechamento', 'D. Fechamento','Dinheiro Inicial','Dinheiro Recebido','Dinheiro Final'],
                 max_col_width=25,
                 auto_size_columns=True,
                 justification='center',
@@ -47,4 +51,3 @@ def lista_caixa():
         if eventos == sg.WIN_CLOSED or eventos == 'Voltar':
             break
     janela.close()
-    

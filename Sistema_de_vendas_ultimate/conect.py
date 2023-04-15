@@ -6,10 +6,10 @@ class Config:
 	def __init__(self):
 		self.config = {
 			'user': 'postgres',
-			'password': 'mpe',
+			'password': 'vitoria',
 			'host': 'localhost',
 			'port': '5432',
-			'database': 'sistema_vendas'
+			'database': 'sistema_de_vendas'
 		}
 
 class Connection(Config):

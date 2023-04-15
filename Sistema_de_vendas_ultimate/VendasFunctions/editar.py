@@ -93,7 +93,6 @@ def editar_vendas():
                             valor_p+= '.'
                         else:
                             valor_p += v
-            print(valor_p)
             valor_total = nova_quantidade*float(valor_p)
             conexao.execute(f"UPDATE public.venda SET id_v={id_v}, id_venda={id_venda}, id_produto={id_produto}, quantidade={nova_quantidade}, valor={valor_total} WHERE id_v = {contact_information[0]};")
     janela.close()
